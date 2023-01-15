@@ -5,6 +5,7 @@
 El objetivo de este proyecto es el desarrollo de manera cooperativa de un juego de mesa en entorno texto mediante la utilización de todas las herramientas aprendidas hasta el momento en **Python**.  
 El verdadero reto del juego es que sea **funcional**, es decir, que se pueda jugar con el resultado de ganar o perder partidas contra una inteligencia artificial muy básica por parte del ordenador. No hace falta el uso de una interfaz gráfica para poder jugarlo, sino que directamente desede la consola se puede jugar.  
 El juego que hemos decidido desarrollar es el ***Timbiriche***, también es conocido como _Dots and Boxes_ o _Juego de los Cuadrados_ en algunos lugares.
+
 ---
 
 # Reglas del Juego
