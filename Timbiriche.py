@@ -1,3 +1,5 @@
+from colorama import init, Fore
+init()
 #Creación de una matriz de casilleros vacíos 
 casillero = [["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"],
              [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
@@ -11,24 +13,33 @@ for x in range (len(casillero)):
     for j in range (len(casillero[x])):
         print(casillero[x][j],end="")
     print()
-#Después, se pide al usuario que introduzca cuatro valores (x1, y1, x2 e y2) 
-#que representan las coordenadas de dos puntos en el tablero
-x1 = int(input("Introduce x1 de la primera coordenada: "))
-y1 = int(input("Introduce y1 de la primera coordenada: "))
-x2 = int(input("Introduce x2 de la segunda coordenada: "))
-y2 = int(input("Introduce y2 de la segunda coordenada: "))
-#Bucle que se ejecuta mientras el usuario no introduzca "salir" para cualquiera de las coordenadas
-while x1 != "salir" and y1!= "salir" and x2 !="salir" and y2 != "salir":
-    # Si y1 es igual a y2, cambiar una sección de " " a "-" en el tablero
-    if y1==y2:
-        #Luego, se vuelve a imprimir la matriz 
-        casillero[y1*2][x1*4+1:4*x2]=["-","-","-"]
+# Petición de coordenadas.
+x1, y1 = input("Ingrese las coordenadas del primer punto x y: ").split()
+x2, y2 = input("Ingrese las coordenadas del segundo punto x y: ").split()
+# Bucle que dibuja la línea que desea el jugador y vuelve a pedir coordenadas.
+while x1 != "salir" or y1!= "salir" or x2 !="salir" or y2 != "salir":
+    x1,y1,x2,y2 = int(x1),int(y1),int(x2),int(y2)
+    # Línea horizontal de izquierda a derecha.
+    if y1==y2 and x1 + 1 == x2:
+        casillero[y1*2][x1*4+1:4*x2]=[Fore.BLUE+"-","-","-"+Fore.RESET]
         for x in range (len(casillero)):
             for j in range (len(casillero[x])):
                 print(casillero[x][j],end="")
             print()
-     #se vuelven a pedir las coordenadas al usuario. 
-    x1 = int(input("Introduce x1 de la primera coordenada: "))
-    y1 = int(input("Introduce y1 de la primera coordenada: "))
-    x2 = int(input("Introduce x2 de la segunda coordenada: "))
-    y2 = int(input("Introduce y2 de la segunda coordenada: "))
+    # Línea horizontal de derecha a izquierda.
+    elif y1==y2 and x1 - 1 == x2:
+        casillero[y1*2][x2*4+1:4*x1]=[Fore.BLUE+"-","-","-"+Fore.RESET]
+        for x in range (len(casillero)):
+            for j in range (len(casillero[x])):
+                print(casillero[x][j],end="")
+            print()
+    # Líneas verticales.
+    elif (x1==x2 and y1 + 1 == y2) or (x1==x2 and y1 - 1 == y2):
+        casillero[y1+y2][x1*4]= Fore.BLUE+"|"+Fore.RESET
+        for x in range (len(casillero)):
+            for j in range (len(casillero[x])):
+                print(casillero[x][j],end="")
+            print()
+
+    x1, y1 = input("Ingrese las coordenadas del primer punto x y :").split()
+    x2, y2 = input("Ingrese las coordenadas del segundo punto x y :").split()
