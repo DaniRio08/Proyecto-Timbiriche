@@ -1,7 +1,27 @@
 from colorama import init, Fore
 init()
-inicial = "H"
-turno = "jugador1"
+import random
+
+print()
+Inicial_J1 = input("JUGADOR 1, ¿con que letra te quieres identificar? ")
+while len(Inicial_J1) > 1:
+    print("Es demasiado largo, solo puede ser una letra.")
+    Inicial_J1 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+print()
+Inicial_J2 = input("JUGADOR 2, ¿con que letra te quieres identificar? ")
+while len(Inicial_J2) > 1:
+    print("Es demasiado largo, solo puede ser una letra.")
+    Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+print()
+turno = random.choice([Inicial_J1,Inicial_J2])
+if turno == Inicial_J1:
+    print(f"Empieza jugando el JUGADOR 1 ({Inicial_J1})")
+elif turno == Inicial_J2:
+    print(f"Empieza jugando el JUGADOR 2 ({Inicial_J2})")
+print()
+print("-------------------------------------------------------")
+print()
+i=0
 
 # Función que verifica si se ha formado un cuadrado al introducir una línea horizontal.
 def verificar_cuadrado_bajo(x,y,casillero):
@@ -46,218 +66,496 @@ for x in range (len(casillero)):
         print(casillero[x][j],end="")
     print()
 
-if turno == "jugador1":
-    # Petición de coordenadas
-    x1, y1 = input("Introduce las coordenadas del primer punto x y: ").split()
-    x2, y2 = input("Introduce las coordenadas del segundo punto x y: ").split()
+
     # Bucle que dibuja la línea que quiere el jugador y vuelve a pedir coordenadas
-    while x1 != "salir" or y1!= "salir" or x2 !="salir" or y2 != "salir":
-        x1,y1,x2,y2 = int(x1),int(y1),int(x2),int(y2)
+while i<40:
+    if turno == Inicial_J1:
+        print()
+        print(f"Turno JUGADOR 1 ({Inicial_J1})")
+        print()
+        x1, y1 = input("Introduce las coordenadas del primer punto x y: ").split()
+        x2, y2 = input("Introduce las coordenadas del segundo punto x y: ").split()
+        print()
         # Línea horizontal de izquierda a derecha
-        if y1==y2 and x1 + 1 == x2:
-            casillero[y1*2][x1*4+1:4*x2]=[Fore.BLUE+"-","-","-"+Fore.RESET]
-            print()
+        if int(y1)==int(y2) and int(x1) + 1 == int(x2):
+            casillero[int(y1)*2][int(x1)*4+1:4*int(x2)]=[Fore.BLUE+"-","-","-"+Fore.RESET]
+            print()    
 
             # Nuevas coordenadas que representan el punto central del cuadrado de arriba y el de abajo que se usan para verificar 
             # si se ha cerrado un cuadrado
-            xb = x1*4+2
-            yb = y1*2+1
-            xa = x1*4+2
-            ya = y1*2-1
+            xb = int(x1)*4+2
+            yb = int(y1)*2+1
+            xa = int(x1)*4+2
+            ya = int(y1)*2-1
             
             # Cada línea puede cerrar dos cuadrados, excepto las que se situan en los bordes del tablero. Si no se hace esta excepción
             # surgen errores que no dejan continuar la partida
-            if y1 == 0:
+            if int(y1) == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
-                    casillero[yb][xb]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J1
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
-            elif y1 == 4:
+                        turno = Inicial_J2
+            elif int(y1) == 4:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
-                    casillero[ya][xa]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J1
 
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                        turno = Inicial_J2
             else :
                 # Este condicional evalua si se han cerrado dos cuadrados a la vez. Si no se incluye, al cerrar dos cuadrados
                 # simultanemente solo cuenta únicamente como uno cerrado
                 if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
-                    casillero[yb][xb]=Fore.BLUE+f"{inicial}"+Fore.RESET
-                    casillero[ya][xa]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
+                    casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
-                    casillero[ya][xa]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J1
 
                 elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
-                    casillero[yb][xb]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J1
 
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J2
 
         # Línea horizontal de derecha a izquierda
-        elif y1==y2 and x1 - 1 == x2:
-            casillero[y1*2][x2*4+1:4*x1]=[Fore.BLUE+"-","-","-"+Fore.RESET]
+        elif int(y1)==int(y2) and int(x1) - 1 == int(x2):
+            casillero[int(y1)*2][int(x2)*4+1:4*int(x1)]=[Fore.BLUE+"-","-","-"+Fore.RESET]
             print()
 
-            xb = x2*4+2
-            yb = y1*2+1
-            xa = x2*4+2
-            ya = y1*2-1
+            xb = int(x2)*4+2
+            yb = int(y1)*2+1
+            xa = int(x2)*4+2
+            ya = int(y1)*2-1
 
-            if y1 == 0:
+            if int(y1) == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
-                    casillero[yb][xb]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J2
 
-            elif y1 == 4:
+            elif int(y1) == 4:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
-                    casillero[ya][xa]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J2
 
             else :
                 if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
-                    casillero[yb][xb]=Fore.BLUE+f"{inicial}"+Fore.RESET
-                    casillero[ya][xa]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
+                    casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
-                    casillero[ya][xa]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
-                    casillero[yb][xb]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J2
         
         # Líneas verticales
-        elif (x1==x2 and y1 + 1 == y2) or (x1==x2 and y1 - 1 == y2):
-            casillero[y1+y2][x1*4]= Fore.BLUE+"|"+Fore.RESET
+        elif (int(x1)==int(x2) and int(y1) + 1 == int(y2)) or (int(x1)==int(x2) and int(y1) - 1 == int(y2)):
+            casillero[int(y1)+int(y2)][int(x1)*4]= Fore.BLUE+"|"+Fore.RESET
             print()
 
-            xi = x1*4-2
-            yi = y1 + y2
-            xd = x1*4+2
-            yd = y1 + y2
+            xi = int(x1)*4-2
+            yi = int(y1) + int(y2)
+            xd = int(x1)*4+2
+            yd = int(y1) + int(y2)
 
-            if x1 == 0:
+            if int(x1) == 0:
                 if verificar_cuadrado_dcha(xd,yd,casillero) == True:
-                    casillero[yd][xd]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yd][xd]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J2
 
-
-            elif x1 == 4:
+            elif int(x1) == 4:
                 if verificar_cuadrado_izda(xi,yi,casillero) == True:
-                    casillero[yi][xi]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J2
 
             else: 
                 if (verificar_cuadrado_dcha(xd,yd,casillero) == True) and (verificar_cuadrado_izda(xi,yi,casillero) == True):
-                    casillero[yd][xd]=Fore.BLUE+f"{inicial}"+Fore.RESET
-                    casillero[yi][xi]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yd][xd]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
+                    casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 elif verificar_cuadrado_dcha(xd,yd,casillero) == True:
-                    casillero[yd][xd]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yd][xd]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-
+                    print()
+                    turno = Inicial_J1
                 elif verificar_cuadrado_izda(xi,yi,casillero) == True:
-                    casillero[yi][xi]=Fore.BLUE+f"{inicial}"+Fore.RESET
+                    casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
-                    
+                    print()
+                    turno = Inicial_J1
                 else:
                     for x in range (len(casillero)):
                         for j in range (len(casillero[x])):
                             print(casillero[x][j],end="")
                         print()
+                    print()
+                    turno = Inicial_J2
+
+    elif turno == Inicial_J2:
+        print()
+        print(f"Turno JUGADOR 2 ({Inicial_J2})")
+        print()
         x1, y1 = input("Introduce las coordenadas del primer punto x y: ").split()
         x2, y2 = input("Introduce las coordenadas del segundo punto x y: ").split()
+        print()
+        # Línea horizontal de izquierda a derecha
+        if int(y1)==int(y2) and int(x1) + 1 == int(x2):
+            casillero[int(y1)*2][int(x1)*4+1:4*int(x2)]=[Fore.RED+"-","-","-"+Fore.RESET]
+            print()
+
+            xb = int(x1)*4+2
+            yb = int(y1)*2+1
+            xa = int(x1)*4+2
+            ya = int(y1)*2-1
+            
+            if int(y1) == 0:
+                if verificar_cuadrado_bajo(xb, yb, casillero) == True:
+                    casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+
+            elif int(y1) == 4:
+                if verificar_cuadrado_arriba(xa, ya, casillero) == True:
+                    casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+
+            else :
+                if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
+                    casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
+                    casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
+                    casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+
+        # Línea horizontal de derecha a izquierda
+        elif int(y1)==int(y2) and int(x1) - 1 == int(x2):
+            casillero[int(y1)*2][int(x2)*4+1:4*int(x1)]=[Fore.RED+"-","-","-"+Fore.RESET]
+            print()
+
+            xb = int(x2)*4+2
+            yb = int(y1)*2+1
+            xa = int(x2)*4+2
+            ya = int(y1)*2-1
+
+            if int(y1) == 0:
+                if verificar_cuadrado_bajo(xb, yb, casillero) == True:
+                    casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+
+            elif int(y1) == 4:
+                if verificar_cuadrado_arriba(xa, ya, casillero) == True:
+                    casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+
+            else :
+                if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
+                    casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
+                    casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
+                    casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+        
+        # Líneas verticales
+        elif (int(x1)==int(x2) and int(y1) + 1 == int(y2)) or (int(x1)==int(x2) and int(y1) - 1 == int(y2)):
+            casillero[int(y1)+int(y2)][int(x1)*4]= Fore.RED+"|"+Fore.RESET
+            print()
+
+            xi = int(x1)*4-2
+            yi = int(y1) + int(y2)
+            xd = int(x1)*4+2
+            yd = int(y1) + int(y2)
+
+            if int(x1) == 0:
+                if verificar_cuadrado_dcha(xd,yd,casillero) == True:
+                    casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+
+            elif int(x1) == 4:
+                if verificar_cuadrado_izda(xi,yi,casillero) == True:
+                    casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+
+            else:
+                if (verificar_cuadrado_dcha(xd,yd,casillero) == True) and (verificar_cuadrado_izda(xi,yi,casillero) == True):
+                    casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2         
+                elif verificar_cuadrado_dcha(xd,yd,casillero) == True:
+                    casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+
+                    turno = Inicial_J2
+                elif verificar_cuadrado_izda(xi,yi,casillero) == True:
+                    casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J2
+                else:
+                    for x in range (len(casillero)):
+                        for j in range (len(casillero[x])):
+                            print(casillero[x][j],end="")
+                        print()
+                    print()
+                    turno = Inicial_J1
+        print()
+    i=i+1
