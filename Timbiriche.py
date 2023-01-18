@@ -55,7 +55,11 @@ def verificar_cuadrado_dcha(x,y,casillero):
         return True
     else:
         return False
-
+def imprimir_casillero(casillero):
+    for x in range (len(casillero)):
+        for j in range (len(casillero[x])):
+            print(casillero[x][j],end="")
+        print()
 #Creación de una matriz de casilleros vacíos 
 casillero = [["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"],
              [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
@@ -68,10 +72,7 @@ casillero = [["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+
              ["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"]]
 
 #Luego, utiliza un ciclo "for" anidado para imprimir cada elemento de la lista en una nueva línea.
-for x in range (len(casillero)):
-    for j in range (len(casillero[x])):
-        print(casillero[x][j],end="")
-    print()
+imprimir_casillero(casillero)
 
 
 # Bucle que dibuja la línea que quiere el jugador y vuelve a pedir coordenadas mientras la partida no se haya finalizado
@@ -101,38 +102,26 @@ while partida_finalizada == False:
             if int(y1) == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
-                        turno = Inicial_J2
+                    imprimir_casillero(casillero)
+                    turno = Inicial_J2
 
             elif int(y1) == 4:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
-                        turno = Inicial_J2
+                    imprimir_casillero(casillero)
+                    turno = Inicial_J2
 
             else :
                 # Este condicional evalua si se han cerrado dos cuadrados a la vez. Si no se incluye, al cerrar dos cuadrados
@@ -140,39 +129,27 @@ while partida_finalizada == False:
                 if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido dos puntos!")
                     puntos_J1+=2
                     turno = Inicial_J1
                 elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
 
@@ -189,38 +166,26 @@ while partida_finalizada == False:
             if int(y1) == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
 
             elif int(y1) == 4:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
 
@@ -228,39 +193,27 @@ while partida_finalizada == False:
                 if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido dos puntos!")
                     puntos_J1+=2
                     turno = Inicial_J1
                 elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
         
@@ -277,38 +230,26 @@ while partida_finalizada == False:
             if int(x1) == 0:
                 if verificar_cuadrado_dcha(xd,yd,casillero) == True:
                     casillero[yd][xd]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
 
             elif int(x1) == 4:
                 if verificar_cuadrado_izda(xi,yi,casillero) == True:
                     casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
 
@@ -316,39 +257,27 @@ while partida_finalizada == False:
                 if (verificar_cuadrado_dcha(xd,yd,casillero) == True) and (verificar_cuadrado_izda(xi,yi,casillero) == True):
                     casillero[yd][xd]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido dos puntos!")
                     puntos_J1+=2
                     turno = Inicial_J1
                 elif verificar_cuadrado_dcha(xd,yd,casillero) == True:
                     casillero[yd][xd]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 elif verificar_cuadrado_izda(xi,yi,casillero) == True:
                     casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J1+=1
                     turno = Inicial_J1
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
 
@@ -384,38 +313,26 @@ while partida_finalizada == False:
             if int(y1) == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
 
             elif int(y1) == 4:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
 
@@ -423,39 +340,27 @@ while partida_finalizada == False:
                 if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
                     casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido dos puntos!")
                     puntos_J2+=2
                     turno = Inicial_J2
                 elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
 
@@ -472,38 +377,26 @@ while partida_finalizada == False:
             if int(y1) == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
 
             elif int(y1) == 4:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
 
@@ -511,39 +404,27 @@ while partida_finalizada == False:
                 if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
                     casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido dos puntos!")
                     puntos_J2+=2
                     turno = Inicial_J2
                 elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
         
@@ -560,38 +441,26 @@ while partida_finalizada == False:
             if int(x1) == 0:
                 if verificar_cuadrado_dcha(xd,yd,casillero) == True:
                     casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
 
             elif int(x1) == 4:
                 if verificar_cuadrado_izda(xi,yi,casillero) == True:
                     casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
 
@@ -599,39 +468,27 @@ while partida_finalizada == False:
                 if (verificar_cuadrado_dcha(xd,yd,casillero) == True) and (verificar_cuadrado_izda(xi,yi,casillero) == True):
                     casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                     casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido dos puntos!")
                     puntos_J2+=2
                     turno = Inicial_J2         
                 elif verificar_cuadrado_dcha(xd,yd,casillero) == True:
                     casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 elif verificar_cuadrado_izda(xi,yi,casillero) == True:
                     casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     print("¡Enhorabuena, has conseguido un punto!")
                     puntos_J2+=1
                     turno = Inicial_J2
                 else:
-                    for x in range (len(casillero)):
-                        for j in range (len(casillero[x])):
-                            print(casillero[x][j],end="")
-                        print()
+                    imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
             if puntos_J1 + puntos_J2 == 16:
