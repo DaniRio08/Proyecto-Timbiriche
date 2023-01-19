@@ -1,7 +1,12 @@
 from colorama import init, Fore
 init()
 import random
+import time
+frase = Fore.LIGHTBLUE_EX+"BIENVENIDOS AL JUEGO DEL TIMBIRICHE TAMBIÉN CONOCIDO COMO EL JUEGO DE LOS CUADRADOS, SUERTE!!"+Fore.RESET
 
+for letra in frase:
+    print(letra, end="", flush=True)
+    time.sleep(0.05)
 # Esta porción de código pide a los jugadores una inicial para identificarse. Luego de forma aleatoria se establece
 # quién jugará el primer turno
 print()
@@ -16,6 +21,7 @@ while len(Inicial_J2) > 1:
     Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
 print()
 turno = random.choice([Inicial_J1,Inicial_J2])
+n=int(input("Introduce el número de tamaño del casillero: "))
 if turno == Inicial_J1:
     print(f"Empieza jugando el JUGADOR 1 ({Inicial_J1})")
 elif turno == Inicial_J2:
@@ -55,23 +61,31 @@ def verificar_cuadrado_dcha(x,y,casillero):
         return True
     else:
         return False
+# Función para imprimir un casillero ,utiliza un ciclo "for" anidado para imprimir cada elemento de la lista en una nueva línea.
 def imprimir_casillero(casillero):
     for x in range (len(casillero)):
         for j in range (len(casillero[x])):
             print(casillero[x][j],end="")
         print()
 #Creación de una matriz de casilleros vacíos 
-casillero = [["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"],
-             [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
-             ["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"],
-             [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
-             ["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"],
-             [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
-             ["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"],
-             [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "],
-             ["+"," "," "," ","+"," "," "," ","+"," "," "," ","+"," "," "," ","+"]]
+casillero = []
+for i in range(n*2):
+    fila = []
+    for j in range(1+(n-1)*4):
+        if i % 2 == 0:
+            if j % 4 == 0:
+                fila.append("+")
+                if j==((n-1)*4):
+                    fila.append(" "+str(i//2))
+            else:
+                fila.append(" ")
+        elif i==(n*2-1):
+            if j % 4 == 0:
+                fila.append(str(j//4)+"   ")
+        else:
+            fila.append(" ")
+    casillero.append(fila)
 
-#Luego, utiliza un ciclo "for" anidado para imprimir cada elemento de la lista en una nueva línea.
 imprimir_casillero(casillero)
 
 
@@ -111,7 +125,7 @@ while partida_finalizada == False:
                     imprimir_casillero(casillero)
                     turno = Inicial_J2
 
-            elif int(y1) == 4:
+            elif int(y1) == n-1:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -176,7 +190,7 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J2
 
-            elif int(y1) == 4:
+            elif int(y1) == n-1:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -240,7 +254,7 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J2
 
-            elif int(x1) == 4:
+            elif int(x1) == n-1:
                 if verificar_cuadrado_izda(xi,yi,casillero) == True:
                     casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -281,8 +295,8 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J2
 
-            if puntos_J1 + puntos_J2 == 16:
-                partida_finalizada = True
+        if puntos_J1 + puntos_J2 == (n-1)**2:
+            partida_finalizada = True
 
         print()
         print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
@@ -323,7 +337,7 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J1
 
-            elif int(y1) == 4:
+            elif int(y1) == n-1:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -387,7 +401,7 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J1
 
-            elif int(y1) == 4:
+            elif int(y1) == n-1:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -451,7 +465,7 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J1
 
-            elif int(x1) == 4:
+            elif int(x1) == n-1:
                 if verificar_cuadrado_izda(xi,yi,casillero) == True:
                     casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -491,8 +505,8 @@ while partida_finalizada == False:
                     imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
-            if puntos_J1 + puntos_J2 == 16:
-                partida_finalizada = True
+        if puntos_J1 + puntos_J2 == (n-1)**2:
+            partida_finalizada = True
 
         print()
         print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
@@ -504,8 +518,14 @@ while partida_finalizada == False:
         print()
 
 if puntos_J1 > puntos_J2 :
-    print(f"¡EL JUGADOR 1 ({Inicial_J1}) HA GANADO LA PARTIDA!")
+    for letra in Fore.GREEN + f"¡EL JUGADOR 1 ({Inicial_J1}) HA GANADO LA PARTIDA!"+ Fore.RESET:
+        print(letra, end="", flush=True)
+        time.sleep(0.05)
 elif puntos_J2 > puntos_J1 :
-    print(f"¡EL JUGADOR 2 ({Inicial_J2}) HA GANADO LA PARTIDA!")
+    for letra in Fore.GREEN+f"¡EL JUGADOR 2 ({Inicial_J2}) HA GANADO LA PARTIDA!"+Fore.RESET:
+        print(letra, end="", flush=True)
+        time.sleep(0.05)
 else:
-    print("LA PARTIDA HA ACABADO EN EMPATE")
+    for letra in Fore.GREEN+"LA PARTIDA HA ACABADO EN EMPATE"+Fore.RESET:
+        print(letra, end="", flush=True)
+        time.sleep(0.05)
