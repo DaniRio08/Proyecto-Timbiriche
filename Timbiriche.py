@@ -2,9 +2,9 @@ from colorama import init, Fore
 init()
 import random
 import time
-frase = Fore.LIGHTBLUE_EX+"BIENVENIDOS AL JUEGO DEL TIMBIRICHE TAMBIÉN CONOCIDO COMO EL JUEGO DE LOS CUADRADOS, SUERTE!!"+Fore.RESET
+frase_bienvenida = Fore.LIGHTBLUE_EX+"BIENVENIDOS AL JUEGO DEL TIMBIRICHE TAMBIÉN CONOCIDO COMO EL JUEGO DE LOS CUADRADOS, SUERTE!!"+Fore.RESET
 
-for letra in frase:
+for letra in frase_bienvenida:
     print(letra, end="", flush=True)
     time.sleep(0.05)
 # Esta porción de código pide a los jugadores una inicial para identificarse. Luego de forma aleatoria se establece
@@ -12,16 +12,35 @@ for letra in frase:
 print()
 Inicial_J1 = input("JUGADOR 1, ¿con que letra te quieres identificar? ")
 while len(Inicial_J1) > 1:
-    print("Es demasiado largo, solo puede ser una letra.")
+    print()
+    print("Es demasiado largo, solo puede ser una letra :D")
     Inicial_J1 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
 print()
 Inicial_J2 = input("JUGADOR 2, ¿con que letra te quieres identificar? ")
-while len(Inicial_J2) > 1:
-    print("Es demasiado largo, solo puede ser una letra.")
-    Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+while len(Inicial_J2) > 1 or Inicial_J1==Inicial_J2:
+    if len(Inicial_J2) > 1:
+        print()
+        print("Es demasiado largo, solo puede ser una letra :D")
+        Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+    else:
+        print()
+        print("Has puesto la misma inicial que el JUGADOR 1")
+        Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
 print()
 turno = random.choice([Inicial_J1,Inicial_J2])
-n=int(input("Introduce el número de tamaño del casillero: "))
+
+while True:
+    try:
+        n=int(input("Introduce el número de tamaño del casillero (2-10): "))
+        break
+    except ValueError:
+        print(Fore.RED+"ERROR: No has introducido un número. Inténtalo otra vez :D"+Fore.RESET)
+
+while n<2 or n>10:
+    print("El tamaño del casillero debe eser como mínimo mayor que 1 y menor 11.")
+    n=int(input("Introduce el número de tamaño del casillero: "))
+
+
 if turno == Inicial_J1:
     print(f"Empieza jugando el JUGADOR 1 ({Inicial_J1})")
 elif turno == Inicial_J2:
@@ -98,8 +117,24 @@ while partida_finalizada == False:
             print(f"Turno JUGADOR 1 ({Inicial_J1})")
             print()
         error_coordenadas = False
-        x1, y1 = map(int,input("Introduce las coordenadas del primer punto x y: ").split())
-        x2, y2 = map(int,input("Introduce las coordenadas del segundo punto x y: ").split())
+        while True:
+            try:
+                x1, y1 = map(int, input("Ingrese las coordenadas del primer punto x y: ").split())
+                if x1 not in range(0,n) or y1 not in range(0,n):
+                    print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                else:
+                    break
+            except ValueError:
+                print(Fore.RED+"ERROR: Has introducido  mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
+        while True:
+            try:
+                x2, y2 = map(int, input("Ingrese las coordenadas del segundo punto x y: ").split())
+                if x2 not in range(0,n) or y2 not in range(0,n):
+                    print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                else:
+                    break
+            except ValueError:
+                print(Fore.RED+"ERROR: Has introducido  mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
         print()
          # Bucle para evitar que sea posible introducir la misma línea dos veces
         while (((y1==y2 and x1 + 1 == x2) and (casillero[y1*2][x1*4+1:4*x2] != [" "," "," "]))
@@ -306,8 +341,8 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J2
         else:
-            print()
-            print(Fore.RED+"ERROR: Esas coordenadas no son validas, vuelve a intentarlo"+Fore.RESET)
+            
+            print(Fore.RED+"ERROR: Esas coordenadas no son validas. Inténtalo otra vez :D"+Fore.RESET)
             print()
             error_coordenadas = True
 
@@ -330,8 +365,24 @@ while partida_finalizada == False:
             print(f"Turno JUGADOR 1 ({Inicial_J1})")
             print()
         error_coordenadas = False
-        x1, y1 = map(int,input("Introduce las coordenadas del primer punto x y: ").split())
-        x2, y2 = map(int,input("Introduce las coordenadas del segundo punto x y: ").split())
+        while True:
+            try:
+                x1, y1 = map(int, input("Ingrese las coordenadas del primer punto x y: ").split())
+                if x1 not in range(0,n) or y1 not in range(0,n):
+                    print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                else:
+                    break
+            except ValueError:
+                print(Fore.RED+"ERROR: Has introducido  mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
+        while True:
+            try:
+                x2, y2 = map(int, input("Ingrese las coordenadas del segundo punto x y: ").split())
+                if x2 not in range(0,n) or y2 not in range(0,n):
+                    print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                else:
+                    break
+            except ValueError:
+                print(Fore.RED+"ERROR: Has introducido  mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
         print()
         while (((y1==y2 and x1 + 1 == x2) and (casillero[y1*2][x1*4+1:4*x2] != [" "," "," "]))
         or ((y1==y2 and x1 - 1 == x2) and (casillero[y1*2][x2*4+1:4*x1] != [" "," "," "]))
@@ -533,8 +584,8 @@ while partida_finalizada == False:
                     print()
                     turno = Inicial_J1
         else:
-            print()
-            print(Fore.RED+"ERROR: Esas coordenadas no son validas, vuelve a intentarlo"+Fore.RESET)
+            
+            print(Fore.RED+"ERROR: Esas coordenadas no son validas. Inténtalo otra vez :D"+Fore.RESET)
             print()
             error_coordenadas = True
 
