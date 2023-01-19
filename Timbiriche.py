@@ -33,7 +33,7 @@ print()
 # Variables para contar los puntos de cada jugador
 puntos_J1 = 0
 puntos_J2 = 0
-
+error_coordenadas = False
 partida_finalizada = False
 
 # Funciones que verifican si se ha formado un cuadrado al introducir una línea horizontal.
@@ -67,7 +67,7 @@ def imprimir_casillero(casillero):
         for j in range (len(casillero[x])):
             print(casillero[x][j],end="")
         print()
-#Creación de una matriz de casilleros vacíos 
+#Creación de una matriz de casilleros vacíos de tamaño variable
 casillero = []
 for i in range(n*2):
     fila = []
@@ -93,12 +93,23 @@ imprimir_casillero(casillero)
 while partida_finalizada == False:
     # Turno del Jugador1
     if turno == Inicial_J1:
+        if error_coordenadas == False:
+            print()
+            print(f"Turno JUGADOR 1 ({Inicial_J1})")
+            print()
+        error_coordenadas = False
+        x1, y1 = map(int,input("Introduce las coordenadas del primer punto x y: ").split())
+        x2, y2 = map(int,input("Introduce las coordenadas del segundo punto x y: ").split())
         print()
-        print(f"Turno JUGADOR 1 ({Inicial_J1})")
-        print()
-        x1, y1 = input("Introduce las coordenadas del primer punto x y: ").split()
-        x2, y2 = input("Introduce las coordenadas del segundo punto x y: ").split()
-        print()
+         # Bucle para evitar que sea posible introducir la misma línea dos veces
+        while (((y1==y2 and x1 + 1 == x2) and (casillero[y1*2][x1*4+1:4*x2] != [" "," "," "]))
+        or ((y1==y2 and x1 - 1 == x2) and (casillero[y1*2][x2*4+1:4*x1] != [" "," "," "]))
+        or (((x1==x2 and y1 + 1 == y2) or (x1==x2 and y1 - 1 == y2)) and (casillero[y1+y2][x1*4] != " "))):
+            print()
+            print(Fore.RED+"ERROR: Esa línea ya ha sido dibujada, vuelve a intentarlo"+Fore.RESET)
+            print()
+            x1, y1 = map(int,input("Ingrese las coordenadas del primer punto x y: ").split())
+            x2, y2 = map(int,input("Ingrese las coordenadas del segundo punto x y: ").split())
         # Línea horizontal de izquierda a derecha
         if int(y1)==int(y2) and int(x1) + 1 == int(x2):
             casillero[int(y1)*2][int(x1)*4+1:4*int(x2)]=[Fore.BLUE+"-","-","-"+Fore.RESET]
@@ -294,26 +305,42 @@ while partida_finalizada == False:
                     imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J2
+        else:
+            print()
+            print(Fore.RED+"ERROR: Esas coordenadas no son validas, vuelve a intentarlo"+Fore.RESET)
+            print()
+            error_coordenadas = True
 
         if puntos_J1 + puntos_J2 == (n-1)**2:
             partida_finalizada = True
 
-        print()
-        print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
-        print()
-        print(f"JUGADOR 1: {puntos_J1} puntos.")
-        print(f"JUGADOR 2: {puntos_J2} puntos.")
-        print()
-        print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
-        print()
+        if error_coordenadas == False:
+            print()
+            print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
+            print()
+            print(f"JUGADOR 1: {puntos_J1} puntos.")
+            print(f"JUGADOR 2: {puntos_J2} puntos.")
+            print()
+            print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
+            print()
 
     elif turno == Inicial_J2:
+        if error_coordenadas == False:
+            print()
+            print(f"Turno JUGADOR 1 ({Inicial_J1})")
+            print()
+        error_coordenadas = False
+        x1, y1 = map(int,input("Introduce las coordenadas del primer punto x y: ").split())
+        x2, y2 = map(int,input("Introduce las coordenadas del segundo punto x y: ").split())
         print()
-        print(f"Turno JUGADOR 2 ({Inicial_J2})")
-        print()
-        x1, y1 = input("Introduce las coordenadas del primer punto x y: ").split()
-        x2, y2 = input("Introduce las coordenadas del segundo punto x y: ").split()
-        print()
+        while (((y1==y2 and x1 + 1 == x2) and (casillero[y1*2][x1*4+1:4*x2] != [" "," "," "]))
+        or ((y1==y2 and x1 - 1 == x2) and (casillero[y1*2][x2*4+1:4*x1] != [" "," "," "]))
+        or (((x1==x2 and y1 + 1 == y2) or (x1==x2 and y1 - 1 == y2)) and (casillero[y1+y2][x1*4] != " "))):
+            print()
+            print(Fore.RED+"ERROR: Esa línea ya ha sido dibujada, vuelve a intentarlo"+Fore.RESET)
+            print()
+            x1, y1 = map(int,input("Ingrese las coordenadas del primer punto x y: ").split())
+            x2, y2 = map(int,input("Ingrese las coordenadas del segundo punto x y: ").split())
         # Línea horizontal de izquierda a derecha
         if int(y1)==int(y2) and int(x1) + 1 == int(x2):
             casillero[int(y1)*2][int(x1)*4+1:4*int(x2)]=[Fore.RED+"-","-","-"+Fore.RESET]
@@ -505,17 +532,24 @@ while partida_finalizada == False:
                     imprimir_casillero(casillero)
                     print()
                     turno = Inicial_J1
+        else:
+            print()
+            print(Fore.RED+"ERROR: Esas coordenadas no son validas, vuelve a intentarlo"+Fore.RESET)
+            print()
+            error_coordenadas = True
+
         if puntos_J1 + puntos_J2 == (n-1)**2:
             partida_finalizada = True
 
-        print()
-        print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
-        print()
-        print(f"JUGADOR 1: {puntos_J1} puntos.")
-        print(f"JUGADOR 2: {puntos_J2} puntos.")
-        print()
-        print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
-        print()
+        if error_coordenadas == False:
+            print()
+            print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
+            print()
+            print(f"JUGADOR 1: {puntos_J1} puntos.")
+            print(f"JUGADOR 2: {puntos_J2} puntos.")
+            print()
+            print(Fore.YELLOW+"--------MARCADOR--------"+Fore.RESET)
+            print()
 
 if puntos_J1 > puntos_J2 :
     for letra in Fore.GREEN + f"¡EL JUGADOR 1 ({Inicial_J1}) HA GANADO LA PARTIDA!"+ Fore.RESET:
