@@ -563,24 +563,24 @@ while partida_finalizada == False:
                 print()
                 print(Fore.RED+"ERROR: Esa línea ya ha sido dibujada, vuelve a intentarlo"+Fore.RESET)
                 print()
-            while True:
-                try:
-                    x1, y1 = map(int, input("Introduce las coordenadas del primer punto x y: ").split())
-                    if x1 not in range(0,n) or y1 not in range(0,n):
-                        print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
-                    else:
-                        break
-                except ValueError:
-                    print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
-            while True:
-                try:
-                    x2, y2 = map(int, input("Introduce las coordenadas del segundo punto x y: ").split())
-                    if x2 not in range(0,n) or y2 not in range(0,n):
-                        print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
-                    else:
-                        break
-                except ValueError:
-                    print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
+                while True:
+                    try:
+                        x1, y1 = map(int, input("Introduce las coordenadas del primer punto x y: ").split())
+                        if x1 not in range(0,n) or y1 not in range(0,n):
+                            print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                        else:
+                            break
+                    except ValueError:
+                        print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
+                while True:
+                    try:
+                        x2, y2 = map(int, input("Introduce las coordenadas del segundo punto x y: ").split())
+                        if x2 not in range(0,n) or y2 not in range(0,n):
+                            print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                        else:
+                            break
+                    except ValueError:
+                        print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
             # Línea horizontal de izquierda a derecha
             if y1==y2 and x1 + 1 == x2:
                 casillero[y1*2][x1*4+1:4*x2]=[Fore.RED+"-","-","-"+Fore.RESET]
