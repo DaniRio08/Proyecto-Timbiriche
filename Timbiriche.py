@@ -3,6 +3,9 @@ init()
 import random
 import time
 print()
+#este código utiliza un bucle "for" para imprimir cada letra de una cadena de texto con un efecto de escritura lenta, 
+#y utiliza el módulo "Fore" para darle un color específico al texto, 
+#y el método sleep del módulo time para detener el programa durante un tiempo específico antes de imprimir la siguiente letra.
 frase_bienvenida = Fore.LIGHTBLUE_EX+"BIENVENIDOS AL JUEGO DEL TIMBIRICHE TAMBIÉN CONOCIDO COMO EL JUEGO DE LOS CUADRADOS, SUERTE!!"+Fore.RESET
 for letra in frase_bienvenida:
     print(letra, end="", flush=True)
@@ -19,13 +22,14 @@ while (versus != "IA") and (versus != "J2"):
 # quién jugará el primer turno
 Inicial_IA = "X"
 print()
-
+#Pidiendo la inicial del jugador 1 y validando la longitud de la letra introducida
 Inicial_J1 = input("JUGADOR 1, ¿con que letra te quieres identificar? ")
 while len(Inicial_J1) > 1:
     print()
     print("Es demasiado largo, solo puede ser una letra :D")
     Inicial_J1 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
 print()
+#Si el juego es contra otro jugador, pide la inicial del jugador 2 y valida que no sea la misma que la del jugador 1
 if versus == "J2":
     Inicial_J2 = input("JUGADOR 2, ¿con que letra te quieres identificar? ")
     while len(Inicial_J2) > 1 or Inicial_J1==Inicial_J2:
@@ -39,6 +43,7 @@ if versus == "J2":
             Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
     turno = random.choice([Inicial_J1,Inicial_J2])
     print()
+#Si el juego es contra una IA, se selecciona de forma aleatoria quien empieza (jugador o IA)
 elif versus == "IA":
     turno = random.choice([Inicial_J1,"IA"])
 
@@ -212,24 +217,41 @@ while partida_finalizada == False:
             print()
             print(Fore.RED+"ERROR: Esa línea ya ha sido dibujada, vuelve a intentarlo"+Fore.RESET)
             print()
-            x1, y1 = map(int,input("Introduce las coordenadas del primer punto x y: ").split())
-            x2, y2 = map(int,input("Introduce las coordenadas del segundo punto x y: ").split())
+            while True:
+                try:
+                    x1, y1 = map(int, input("Introduce las coordenadas del primer punto x y: ").split())
+                    if x1 not in range(0,n) or y1 not in range(0,n):
+                        print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                    else:
+                        break
+                except ValueError:
+                    print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
+            while True:
+                try:
+                    x2, y2 = map(int, input("Introduce las coordenadas del segundo punto x y: ").split())
+                    if x2 not in range(0,n) or y2 not in range(0,n):
+                        print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                    else:
+                        break
+                except ValueError:
+                    print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
+            print()
 
         # Línea horizontal de izquierda a derecha
-        if int(y1)==int(y2) and int(x1) + 1 == int(x2):
-            casillero[int(y1)*2][int(x1)*4+1:4*int(x2)]=[Fore.BLUE+"-","-","-"+Fore.RESET]
+        if y1==y2 and x1 + 1 == x2:
+            casillero[y1*2][x1*4+1:4*x2]=[Fore.BLUE+"-","-","-"+Fore.RESET]
             print()    
 
             # Nuevas coordenadas que representan el punto central del cuadrado de arriba y el de abajo que se usan para verificar 
             # si se ha cerrado un cuadrado
-            xb = int(x1)*4+2
-            yb = int(y1)*2+1
-            xa = int(x1)*4+2
-            ya = int(y1)*2-1
+            xb = x1*4+2
+            yb = y1*2+1
+            xa = x1*4+2
+            ya = y1*2-1
             
             # Cada línea puede cerrar dos cuadrados, excepto las que se situan en los bordes del tablero. Si no se hace esta excepción
             # surgen errores que no dejan continuar la partida
-            if int(y1) == 0:
+            if y1 == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -245,7 +267,7 @@ while partida_finalizada == False:
                         imprimir_casillero(casillero)
                         turno = "IA"
 
-            elif int(y1) == n-1:
+            elif y1 == n-1:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -299,16 +321,16 @@ while partida_finalizada == False:
                 lista_movimientos.remove(f"{x1} {y1},{x2} {y2}")
 
         # Línea horizontal de derecha a izquierda
-        elif int(y1)==int(y2) and int(x1) - 1 == int(x2):
-            casillero[int(y1)*2][int(x2)*4+1:4*int(x1)]=[Fore.BLUE+"-","-","-"+Fore.RESET]
+        elif y1 == y2 and x1 - 1 == x2:
+            casillero[y1*2][x2*4+1:4*x1]=[Fore.BLUE+"-","-","-"+Fore.RESET]
             print()
 
-            xb = int(x2)*4+2
-            yb = int(y1)*2+1
-            xa = int(x2)*4+2
-            ya = int(y1)*2-1
+            xb = x2*4+2
+            yb = y1*2+1
+            xa = x2*4+2
+            ya = y1*2-1
 
-            if int(y1) == 0:
+            if y1 == 0:
                 if verificar_cuadrado_bajo(xb, yb, casillero) == True:
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -324,7 +346,7 @@ while partida_finalizada == False:
                         imprimir_casillero(casillero)
                         turno = "IA"
 
-            elif int(y1) == n-1:
+            elif y1 == n-1:
                 if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -341,27 +363,46 @@ while partida_finalizada == False:
                         turno = "IA"
 
             else :
+                 # Verificamos si se cierran ambos cuadrados arriba y abajo
                 if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
+                    # Asignamos el caracter de J1 a ambos cuadrados cerrado
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
+                    # Imprimimos el casillero
                     imprimir_casillero(casillero)
+                    # Mostramos un mensaje de dos puntos conseguidos por J!
                     print()
                     print("¡Enhorabuena, has conseguido dos puntos!")
+                     # Sumamos dos puntos a J1
                     puntos_J1+=2
+                    #Asignamos el turno a J!
                     turno = Inicial_J1
+                # Verificamos si se cierra solo el cuadrado arriba
                 elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
+                    # Asignamos el caracter de J1 al cuadrado cerrado
                     casillero[ya][xa]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
+                    # Imprimimos el casillero
                     imprimir_casillero(casillero)
                     print()
+                    # Mostramos un mensaje de punto conseguido por J1
                     print("¡Enhorabuena, has conseguido un punto!")
+                    # Sumamos un punto a J1
                     puntos_J1+=1
+                    # Asignamos el turno a J1
                     turno = Inicial_J1
+                # Verificamos si se cierra solo el cuadrado abajo
                 elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
+                    # Asignamos el caracter de la IA al cuadrado cerrado
                     casillero[yb][xb]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
+                    # Imprimimos el casillero
                     imprimir_casillero(casillero)
                     print()
+                     # Mostramos un mensaje de punto conseguido por J!
                     print("¡Enhorabuena, has conseguido un punto!")
+
+                    # Sumamos un punto a J1
                     puntos_J1+=1
+                    # Asignamos el turno a J1
                     turno = Inicial_J1
                 else:
                     if versus == "J2":
@@ -375,17 +416,17 @@ while partida_finalizada == False:
             if versus == "IA":
                 lista_movimientos.remove(f"{x2} {y2},{x1} {y1}")
         
-        # Líneas verticales
-        elif (int(x1)==int(x2) and int(y1) + 1 == int(y2)) or (int(x1)==int(x2) and int(y1) - 1 == int(y2)):
-            casillero[int(y1)+int(y2)][int(x1)*4]= Fore.BLUE+"|"+Fore.RESET
+       
+        elif (x1==x2 and y1 + 1 == y2) or (x1==x2 and y1 - 1 == y2):
+            casillero[y1 + y2][x1*4]= Fore.BLUE+"|"+Fore.RESET
             print()
 
-            xi = int(x1)*4-2
-            yi = int(y1) + int(y2)
-            xd = int(x1)*4+2
-            yd = int(y1) + int(y2)
+            xi = x1*4-2
+            yi = y1 + y2
+            xd = x1*4+2
+            yd = y1 + y2
 
-            if int(x1) == 0:
+            if x1 == 0:
                 if verificar_cuadrado_dcha(xd,yd,casillero) == True:
                     casillero[yd][xd]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -401,7 +442,7 @@ while partida_finalizada == False:
                         imprimir_casillero(casillero)
                         turno = "IA"
 
-            elif int(x1) == n-1:
+            elif x1 == n-1:
                 if verificar_cuadrado_izda(xi,yi,casillero) == True:
                     casillero[yi][xi]=Fore.BLUE+f"{Inicial_J1}"+Fore.RESET
                     imprimir_casillero(casillero)
@@ -522,83 +563,132 @@ while partida_finalizada == False:
                 print()
                 print(Fore.RED+"ERROR: Esa línea ya ha sido dibujada, vuelve a intentarlo"+Fore.RESET)
                 print()
-                x1, y1 = map(int,input("Introduce las coordenadas del primer punto x y: ").split())
-                x2, y2 = map(int,input("Introduce las coordenadas del segundo punto x y: ").split())
+            while True:
+                try:
+                    x1, y1 = map(int, input("Introduce las coordenadas del primer punto x y: ").split())
+                    if x1 not in range(0,n) or y1 not in range(0,n):
+                        print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                    else:
+                        break
+                except ValueError:
+                    print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
+            while True:
+                try:
+                    x2, y2 = map(int, input("Introduce las coordenadas del segundo punto x y: ").split())
+                    if x2 not in range(0,n) or y2 not in range(0,n):
+                        print(Fore.RED+"ERROR: Has introducido una coordenada fuera del rango permitido. Inténtalo otra vez :D "+Fore.RESET)
+                    else:
+                        break
+                except ValueError:
+                    print(Fore.RED+"ERROR: Has introducido mal la coordenada. Inténtalo otra vez :D"+Fore.RESET)
             # Línea horizontal de izquierda a derecha
-            if int(y1)==int(y2) and int(x1) + 1 == int(x2):
-                casillero[int(y1)*2][int(x1)*4+1:4*int(x2)]=[Fore.RED+"-","-","-"+Fore.RESET]
+            if y1==y2 and x1 + 1 == x2:
+                casillero[y1*2][x1*4+1:4*x2]=[Fore.RED+"-","-","-"+Fore.RESET]
                 print()
 
-                xb = int(x1)*4+2
-                yb = int(y1)*2+1
-                xa = int(x1)*4+2
-                ya = int(y1)*2-1
+                xb = x1*4+2
+                yb = y1*2+1
+                xa = x1*4+2
+                ya = y1*2-1
                 
-                if int(y1) == 0:
+                if y1 == 0:
+                    # Verificamos si se cierra el cuadrado abajo
                     if verificar_cuadrado_bajo(xb, yb, casillero) == True:
+                         # Asignamos el caracter de la IA al cuadrado cerrado
                         casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
+                         # Mostramos un mensaje de punto conseguido por J2
                         print()
                         print("¡Enhorabuena, has conseguido un punto!")
+                        # Sumamos un punto a J2
                         puntos_J2+=1
+                         # Asignamos el turno a J2
                         turno = Inicial_J2
                     else:
+                        # Si no se cierra el cuadrado, se le asigna el turno al jugador
                         imprimir_casillero(casillero)
                         print()
                         turno = Inicial_J1
 
-                elif int(y1) == n-1:
+                elif y1 == n-1:
+                     # Verificamos si se cierra el cuadrado arriba
                     if verificar_cuadrado_arriba(xa, ya, casillero) == True:
+                         #Asignamos el caracter de la IA al cuadrado cerrado
                         casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                          # Imprimimos el casillero
                         imprimir_casillero(casillero)
+                        # Mostramos un mensaje de punto conseguido por J2
                         print()
                         print("¡Enhorabuena, has conseguido un punto!")
+                        # Sumamos un punto a J2
                         puntos_J2+=1
+                         # Asignamos el turno a J2
                         turno = Inicial_J2
                     else:
+                        # Si no se cierra el cuadrado, se le asigna el turno al jugador
                         imprimir_casillero(casillero)
                         print()
                         turno = Inicial_J1
 
                 else :
+                     # Verificamos si se cierran ambos cuadrados arriba y abajo
                     if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
+                        # Asignamos el caracter de la J2 a ambos cuadrados cerrado
                         casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                         casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
                         print()
+                         # Mostramos un mensaje de dos puntos conseguidos por J2
                         print("¡Enhorabuena, has conseguido dos puntos!")
+                        # Sumamos dos puntos a J2
                         puntos_J2+=2
+                         # Asignamos el turno a J2
                         turno = Inicial_J2
+                    # Verificamos si se cierra solo el cuadrado arriba
                     elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
+                         # Asignamos el caracter de J2 al cuadrado cerrado
                         casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
                         print()
+                        # Mostramos un mensaje de punto conseguido por J2
                         print("¡Enhorabuena, has conseguido un punto!")
+                        # Sumamos un punto a J2
                         puntos_J2+=1
+                        # Asignamos el turno a J2
                         turno = Inicial_J2
+                     # Verificamos si se cierra solo el cuadrado abajo
                     elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
+                         # Asignamos el caracter de J2 al cuadrado cerrado
                         casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
+                         # Mostramos un mensaje de punto conseguido por J2
                         print()
                         print("¡Enhorabuena, has conseguido un punto!")
+                        # Sumamos un punto a J2
                         puntos_J2+=1
+                        # Asignamos el turno a J2
                         turno = Inicial_J2
                     else:
+                         # Si no se cierra ninguno de los cuadrados, se le asigna el turno al jugadorJ1
                         imprimir_casillero(casillero)
                         print()
                         turno = Inicial_J1
 
             # Línea horizontal de derecha a izquierda
-            elif int(y1)==int(y2) and int(x1) - 1 == int(x2):
-                casillero[int(y1)*2][int(x2)*4+1:4*int(x1)]=[Fore.RED+"-","-","-"+Fore.RESET]
+            elif y1==y2 and x1 - 1 == x2:
+                casillero[y1*2][x2*4+1:4*x1]=[Fore.RED+"-","-","-"+Fore.RESET]
                 print()
 
-                xb = int(x2)*4+2
-                yb = int(y1)*2+1
-                xa = int(x2)*4+2
-                ya = int(y1)*2-1
+                xb = x2*4+2
+                yb = y1*2+1
+                xa = x2*4+2
+                ya = y1*2-1
 
-                if int(y1) == 0:
+                if y1 == 0:
                     if verificar_cuadrado_bajo(xb, yb, casillero) == True:
                         casillero[yb][xb]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                         imprimir_casillero(casillero)
@@ -611,7 +701,7 @@ while partida_finalizada == False:
                         print()
                         turno = Inicial_J1
 
-                elif int(y1) == n-1:
+                elif y1 == n-1:
                     if verificar_cuadrado_arriba(xa, ya, casillero) == True:
                         casillero[ya][xa]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                         imprimir_casillero(casillero)
@@ -653,65 +743,98 @@ while partida_finalizada == False:
                         turno = Inicial_J1
             
             # Líneas verticales
-            elif (int(x1)==int(x2) and int(y1) + 1 == int(y2)) or (int(x1)==int(x2) and int(y1) - 1 == int(y2)):
-                casillero[int(y1)+int(y2)][int(x1)*4]= Fore.RED+"|"+Fore.RESET
+            elif (x1==x2 and y1 + 1 == y2) or (x1==x2 and y1 - 1 == y2):
+                casillero[y1+y2][x1*4]= Fore.RED+"|"+Fore.RESET
                 print()
 
-                xi = int(x1)*4-2
-                yi = int(y1) + int(y2)
-                xd = int(x1)*4+2
-                yd = int(y1) + int(y2)
+                xi = x1*4-2
+                yi = y1 + y2
+                xd = x1*4+2
+                yd = y1 + y2
 
-                if int(x1) == 0:
+                if x1 == 0:
+                     # Verificamos si se cierra solo el cuadrado a la derecha
                     if verificar_cuadrado_dcha(xd,yd,casillero) == True:
+                        # Asignamos el caracter del jugador al cuadrado cerrado
                         casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
                         print()
+                        # Mostramos un mensaje de punto conseguido
                         print("¡Enhorabuena, has conseguido un punto!")
+                        # Sumamos un punto al jugador
                         puntos_J2+=1
+                        # Asignamos el turno al jugador
                         turno = Inicial_J2
                     else:
+                         #Si no  se imprime el casillero y cambiamos de turno
                         imprimir_casillero(casillero)
                         print()
                         turno = Inicial_J1
 
-                elif int(x1) == n-1:
+                elif x1 == n-1:
+                    # Verificamos si se cierra solo el cuadrado a izquierda
                     if verificar_cuadrado_izda(xi,yi,casillero) == True:
+                        # Asignamos el caracter del jugador al cuadrado cerrado
                         casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
                         print()
+                        # Mostramos un mensaje de punto conseguido
                         print("¡Enhorabuena, has conseguido un punto!")
+                        # Sumamos un punto al jugador
                         puntos_J2+=1
+                        # Asignamos el turno al jugador
                         turno = Inicial_J2
                     else:
+                        #Si no  se imprime el casillero y cambiamos de turno
                         imprimir_casillero(casillero)
                         print()
                         turno = Inicial_J1
 
                 else:
+                    # Verificamos si se cierran ambos cuadrados a la izquierda y derecha
                     if (verificar_cuadrado_dcha(xd,yd,casillero) == True) and (verificar_cuadrado_izda(xi,yi,casillero) == True):
+                        # Asignamos el caracter del jugador a ambos cuadrados cerrados
                         casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
                         casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
                         print()
+                         # Mostramos un mensaje de dos puntos conseguidos
                         print("¡Enhorabuena, has conseguido dos puntos!")
+                        # Sumamos dos puntos al jugador
                         puntos_J2+=2
-                        turno = Inicial_J2         
+                        # Asignamos el turno al jugador2
+                        turno = Inicial_J2     
+                    # Verificamos si se cierra solo el cuadrado a la derecha
                     elif verificar_cuadrado_dcha(xd,yd,casillero) == True:
+                         # Asignamos el caracter del jugador al cuadrado cerrado
                         casillero[yd][xd]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        # Imprimimos el casillero
                         imprimir_casillero(casillero)
                         print()
+                        # Mostramos un mensaje de punto conseguido
                         print("¡Enhorabuena, has conseguido un punto!")
+                         # Sumamos un punto al jugador2
                         puntos_J2+=1
+                          # Asignamos el turno al jugador2
                         turno = Inicial_J2
+                    # Verificamos si se cierra solo el cuadrado a la izquierda
                     elif verificar_cuadrado_izda(xi,yi,casillero) == True:
+                        # Asignamos el caracter del jugador al cuadrado cerrado
                         casillero[yi][xi]=Fore.RED+f"{Inicial_J2}"+Fore.RESET
+                        #Imprimimos el casillero
                         imprimir_casillero(casillero)
                         print()
+                         # Mostramos un mensaje de punto conseguido
                         print("¡Enhorabuena, has conseguido un punto!")
+                         # Sumamos un punto al jugador
                         puntos_J2+=1
+                        # Asignamos el turno al jugador
                         turno = Inicial_J2
                     else:
+                        #Si no  se imprime el casillero y cambiamos de turno
                         imprimir_casillero(casillero)
                         print()
                         turno = Inicial_J1
@@ -836,63 +959,92 @@ while partida_finalizada == False:
             print()
             # Línea horizontal
             if y1==y2 and x1 + 1 == x2:
+                 # Asignamos el color rojo a la línea unida
                 casillero[y1*2][x1*4+1:4*x2]=[Fore.RED+"-","-","-"+Fore.RESET]
                 print()
-                xb = x1*4+2
-                yb = y1*2+1
-                xa = x1*4+2
-                ya = y1*2-1
-
+              # Calculamos las posiciones de los cuadrados arriba y abajo de la línea unida
+                xb, yb, xa, ya = x1*4+2, y1*2+1, x1*4+2, y1*2-1
                 if y1 == 0:
                     if verificar_cuadrado_bajo(xb, yb, casillero) == True:
-                            casillero[yb][xb]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
-                            imprimir_casillero(casillero)
-                            print()
-                            print("ORDENADOR: ¡He conseguido un punto!")
-                            puntos_IA+=1
-                            turno = "IA"
+                        # Asignamos el caracter de la IA al cuadrado cerrado
+                        casillero[yb][xb]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
+                        # Imprimimos el casillero
+                        imprimir_casillero(casillero)
+                        # Mostramos un mensaje de punto conseguido por la IA
+                        print()
+                        print("ORDENADOR: ¡He conseguido un punto!")
+                        # Sumamos un punto a la IA
+                        puntos_IA+=1
+                        # Asignamos el turno a la IA
+                        turno = "IA"
                     else:
-                            imprimir_casillero(casillero)
-                            print()
-                            turno = Inicial_J1
+                         # Si no se cierra el cuadrado, se le asigna el turno al jugador
+                        imprimir_casillero(casillero)
+                        print()
+                        turno = Inicial_J1
+                # Verificamos si se cierra el cuadrado arriba
 
                 elif y1 == n-1:
                     if verificar_cuadrado_arriba(xa, ya, casillero) == True:
-                            casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
-                            imprimir_casillero(casillero)
-                            print()
-                            print("ORDENADOR: ¡He conseguido un punto!")
-                            puntos_IA+=1
-                            turno = "IA"
+                        #Asignamos el caracter de la IA al cuadrado cerrado
+                        casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
+                         # Imprimimos el casillero
+                        imprimir_casillero(casillero)
+                        # Mostramos un mensaje de punto conseguido por la IA
+                        print()
+                        print("ORDENADOR: ¡He conseguido un punto!")
+                        # Sumamos un punto a la IA
+                        puntos_IA+=1
+                        # Asignamos el turno a la IA
+                        turno = "IA"
                     else:
-                            imprimir_casillero(casillero)
-                            print()
-                            turno = Inicial_J1
+                        # Si no se cierra el cuadrado, se le asigna el turno al jugador
+                        imprimir_casillero(casillero)
+                        print()
+                        turno = Inicial_J1
 
                 else :
                     if (verificar_cuadrado_bajo(xb, yb, casillero) == True) and (verificar_cuadrado_arriba(xa, ya, casillero) == True):
-                            casillero[yb][xb]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
-                            casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
-                            imprimir_casillero(casillero)
-                            print()
-                            print("ORDENADOR: ¡He conseguido dos puntos!")
-                            puntos_IA+=2
-                            turno = "IA"
+                        # Asignamos el caracter de la IA a ambos cuadrados cerrado
+                        casillero[yb][xb]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
+                        casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
+                        # Imprimimos el casillero
+                        imprimir_casillero(casillero)
+                        # Mostramos un mensaje de dos puntos conseguidos por la IA
+                        print()
+                        print("ORDENADOR: ¡He conseguido dos puntos!")
+                        # Sumamos dos puntos a la IA
+                        puntos_IA+=2
+                        # Asignamos el turno a la IA
+                        turno = "IA"
+                    # Verificamos si se cierra solo el cuadrado arriba
                     elif verificar_cuadrado_arriba(xa, ya, casillero) == True:
-                            casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
-                            imprimir_casillero(casillero)
-                            print()
-                            print("ORDENADOR: ¡He conseguido un punto!")
-                            puntos_IA+=1
-                            turno = "IA"
+                         # Asignamos el caracter de la IA al cuadrado cerrado
+                        casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
+                        # Imprimimos el casillero
+                        imprimir_casillero(casillero)
+                        # Mostramos un mensaje de punto conseguido por la IA
+                        print()
+                        print("ORDENADOR: ¡He conseguido un punto!")
+                        # Sumamos un punto a la IA
+                        puntos_IA+=1
+                        # Asignamos el turno a la IA
+                        turno = "IA"
+                    # Verificamos si se cierra solo el cuadrado abajo
                     elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
-                            casillero[yb][xb]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
-                            imprimir_casillero(casillero)
-                            print()
-                            print("ORDENADOR: ¡He conseguido un punto!")
-                            puntos_IA+=1
-                            turno = "IA"
+                        # Asignamos el caracter de la IA al cuadrado cerrado
+                        casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
+                        # Imprimimos el casillero
+                        imprimir_casillero(casillero)
+                        # Mostramos un mensaje de punto conseguido por la IA
+                        print()
+                        print("ORDENADOR: ¡He conseguido un punto!")
+                        # Sumamos un punto a la IA
+                        puntos_IA+=1
+                        # Asignamos el turno a la IA
+                        turno = "IA"
                     else:
+                         # Si no se cierra ninguno de los cuadrados, se le asigna el turno al jugador
                             imprimir_casillero(casillero)
                             print()
                             turno = Inicial_J1
@@ -905,7 +1057,7 @@ while partida_finalizada == False:
                 xd = x1*4+2
                 yd = y1 + y2
 
-                if int(x1) == 0:
+                if x1 == 0:
                     if verificar_cuadrado_dcha(xd,yd,casillero) == True:
                             casillero[yd][xd]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
                             imprimir_casillero(casillero)
@@ -918,7 +1070,7 @@ while partida_finalizada == False:
                             print()
                             turno = Inicial_J1
 
-                elif int(x1) == n-1:
+                elif x1 == n-1:
                     if verificar_cuadrado_izda(xi,yi,casillero) == True:
                             casillero[yi][xi]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
                             imprimir_casillero(casillero)
@@ -980,34 +1132,41 @@ while partida_finalizada == False:
             lista_movimientos.remove(jugada)
 
             # Condición finalizar partida
-            if puntos_IA == (n-1)**2:
+            if puntos_IA + puntos_J1== (n-1)**2:
                 partida_finalizada = True
 
 
 if versus == "J2":
     if puntos_J1 > puntos_J2 :
+         # imprimir mensaje de victoria para Jugador 1
         for letra in Fore.GREEN + f"¡EL JUGADOR 1 ({Inicial_J1}) HA GANADO LA PARTIDA!"+ Fore.RESET:
             print(letra, end="", flush=True)
             time.sleep(0.05)
     elif puntos_J2 > puntos_J1 :
+         # imprimir mensaje de victoria para Jugador 2
         for letra in Fore.GREEN+f"¡EL JUGADOR 2 ({Inicial_J2}) HA GANADO LA PARTIDA!"+Fore.RESET:
             print(letra, end="", flush=True)
             time.sleep(0.05)
     else:
+        # imprimir mensaje de empate
         for letra in Fore.GREEN+"LA PARTIDA HA ACABADO EN EMPATE"+Fore.RESET:
             print(letra, end="", flush=True)
             time.sleep(0.05)
 
 if versus == "IA":
-    if puntos_J1 > puntos_J2 :
+    if puntos_J1 > puntos_IA :
+         # imprimir mensaje de victoria para el jugador contra la IA
         for letra in Fore.GREEN + "¡HAS CONSEGUIDO GANARLE AL ORDENADOR, ENHORABUENA!"+ Fore.RESET:
             print(letra, end="", flush=True)
             time.sleep(0.05)
-    elif puntos_J2 > puntos_J1 :
+
+    elif puntos_IA > puntos_J1 :
+       # imprimir mensaje de derrota para el jugador contra la IA
         for letra in Fore.RED+f"¡HAS PERDIDO, EL ORDENADOR TE HA GANADO!"+Fore.RESET:
             print(letra, end="", flush=True)
             time.sleep(0.05)
     else:
+        # imprimir mensaje de empate
         for letra in Fore.YELLOW+"LA PARTIDA HA ACABADO EN EMPATE"+Fore.RESET:
             print(letra, end="", flush=True)
             time.sleep(0.05)
