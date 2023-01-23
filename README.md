@@ -8,19 +8,35 @@ El juego que hemos decidido desarrollar es el ***Timbiriche***, también es cono
 
 ---
 
-# Reglas del Juego
+# Cómo jugar al timbiriche (2 personas)!!!
 
-El ***Timbiriche*** o (_Dots and Boxes_) es un juego de mesa para dos o más jugadores, en este caso jugará el usuario contra el ordenador.  
-El objetivo del juego es conectar puntos en un tablero de la dimensión que se desee. 
-Los turnos consisten en que cada jugador dibuja una línea entre dos puntos adyacentes del tablero, cuando al dibujar la línea se complete un cuadrado ese jugador obtiene un punto y tiene otro turno, por lo que puede dibujar otra línea. El juego termina cuando no haya más líneas por poner. Y gana quién haya conseguido completar más cuadrados.
+### **1. Preparación**
 
-### Ejemplo de una partida
-1. Se decide la dimensión del tablero. Y se empieza a jugar estando este vacío, sin ninguna línea.
-2. El primer jugador elige un punto cualquiera del tablero y conecta dos puntos adyacentes con una línea.
-3. Los jugadores continúan turnándose para conectar puntos adyacentes con líneas.
-4. Si un jugador logra conectar dos líneas de forma tal que se cierra un cuadrado, este jugador recibe un punto y puede continuar jugando.
-5. El juego termina cuando no quedan más puntos por conectar o cuando los jugadores acuerdan finalizarlo.
-6. El jugador con más puntos al final del juego, gana.
+    1.1 Se elige el tamaño del tablero.
+  
+    1.2 Se elige el primer turno de forma aleatoria.
+  
+### **2. Jugar turnos**
+
+    2.1 El jugador que tiene el turno primero traza una línea entre dos puntos.
+  
+    2.2 El siguiente jugador también traza una línea entre dos puntos.
+  
+    2.3 Si al trazar una línea, se cierra un cuadrado, el jugador que lo ha cerrado lo marca con su color.
+  
+    2.4 El jugador que ha cerrado el cuadrado tiene el turno en la próxima jugada.
+  
+    2.5 El objetivo del juego es cerrar el mayor número de cuadrados posibles.
+
+### **3. Finalizar la partida**
+    3.1 La partida finaliza cuando no se pueden trazar más líneas.
+  
+    3.2 Gana el jugador que haya conseguido marcar más cuadrados en el proceso.
+
+### **4. Reglas adicionales**
+  - Si el jugador no puede trazar una línea, pierde el turno.
+  - Si un jugador cierra un cuadrado y tiene la oportunidad de cerrar otro en el mismo turno, puede hacerlo.
+
 
 ### Estrategias
 
@@ -69,4 +85,4 @@ Los turnos consisten en que cada jugador dibuja una línea entre dos puntos adya
 - IndexError al introducir coordenadas fuera del rango 
 
 ### Solución:
--Dentro del try except hemos añadido un condicional if para que las coordenadas si están fuera del rango permitido nos vuelva a pedir otra vez las coordenadas de un punto
+- Dentro del try except hemos añadido un condicional if para que las coordenadas si están fuera del rango permitido nos vuelva a pedir otra vez las coordenadas de un punto
