@@ -24,23 +24,48 @@ Inicial_IA = "X"
 print()
 #Pidiendo la inicial del jugador 1 y validando la longitud de la letra introducida
 Inicial_J1 = input("JUGADOR 1, ¿con que letra te quieres identificar? ")
-while len(Inicial_J1) > 1:
-    print()
-    print("Es demasiado largo, solo puede ser una letra :D")
-    Inicial_J1 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+while len(Inicial_J1) != 1 or Inicial_J1 == " ":
+    if len(Inicial_J1) > 1:
+        print()
+        print("Es demasiado largo, solo puede ser una letra :D")
+        print()
+        Inicial_J1 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+    elif len(Inicial_J1) < 1:
+        print()
+        print("No has escrito nada :D")
+        print()
+        Inicial_J1 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+    elif Inicial_J1 == " ":
+        print()
+        print("No has puesto una inicial :D")
+        print()
+        Inicial_J1 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
 print()
 #Si el juego es contra otro jugador, pide la inicial del jugador 2 y valida que no sea la misma que la del jugador 1
 if versus == "J2":
     Inicial_J2 = input("JUGADOR 2, ¿con que letra te quieres identificar? ")
-    while len(Inicial_J2) > 1 or Inicial_J1==Inicial_J2:
+    while len(Inicial_J2) != 1 or Inicial_J1==Inicial_J2 or Inicial_J2 == " ":
         if len(Inicial_J2) > 1:
             print()
             print("Es demasiado largo, solo puede ser una letra :D")
+            print()
+            Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+        elif len(Inicial_J2) < 1:
+            print()
+            print("No has escrito nada :D")
+            print()
+            Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+        elif Inicial_J2 == " ":
+            print()
+            print("No has puesto una inicial :D")
+            print()
             Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
         else:
             print()
             print("Has puesto la misma inicial que el JUGADOR 1")
+            print()
             Inicial_J2 = input("Vuelve a introducir la letra con la que te quieres identificar: ")
+
     turno = random.choice([Inicial_J1,Inicial_J2])
     print()
 #Si el juego es contra una IA, se selecciona de forma aleatoria quien empieza (jugador o IA)
@@ -948,7 +973,7 @@ while partida_finalizada == False:
             # opción
             else :
                 jugada = random.choice(lista_2)
-            
+            time.sleep(0.85)
             # Transformar la jugada en coordenadas validas y hacer un turno exactamente igual que Jugador1 o Jugador2
             x1 = int(jugada[0])
             y1 = int(jugada[2])
@@ -1033,7 +1058,7 @@ while partida_finalizada == False:
                     # Verificamos si se cierra solo el cuadrado abajo
                     elif verificar_cuadrado_bajo(xb, yb, casillero) == True:
                         # Asignamos el caracter de la IA al cuadrado cerrado
-                        casillero[ya][xa]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
+                        casillero[yb][xb]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
                         # Imprimimos el casillero
                         imprimir_casillero(casillero)
                         # Mostramos un mensaje de punto conseguido por la IA
@@ -1089,7 +1114,7 @@ while partida_finalizada == False:
                             casillero[yi][xi]=Fore.RED+f"{Inicial_IA}"+Fore.RESET
                             imprimir_casillero(casillero)
                             print()
-                            print("ORDENADOR: ¡He conseguido dos punto!")
+                            print("ORDENADOR: ¡He conseguido dos puntoS!")
                             puntos_IA+=2
                             turno = "IA"      
                     elif verificar_cuadrado_dcha(xd,yd,casillero) == True:
